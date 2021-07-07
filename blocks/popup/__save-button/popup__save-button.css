@@ -1,4 +1,4 @@
-.save-button {
+.popup__save-button {
   padding: 0;
   width: 100%;
   min-height: 50px;
@@ -6,7 +6,7 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
-  font-family: "Inter" , "Times New Roman" , "Arial", serif;
+  font-family: "Inter" , "Arial", "Impact", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -17,12 +17,14 @@
   transition: opacity 0.15s linear;
 }
 
-.save-button:hover {
+.popup__save-button:hover {
   opacity: 80%;
 }
 
 @media (max-width: 689px) {
-  .save-button {
+  .popup__save-button {
     min-height: 46px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

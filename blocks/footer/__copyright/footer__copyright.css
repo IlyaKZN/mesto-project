@@ -1,6 +1,6 @@
 .footer__copyright {
   margin: 0 0 60px 0;
-  font-family: "Inter" , "Times New Roman" , "Arial", serif;
+  font-family: "Inter" , "Arial", "Impact", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -11,5 +11,7 @@
 @media (max-width: 689px) {
   .footer__copyright {
     margin-bottom: 36px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

@@ -2,4 +2,14 @@
   max-width: 22px;
   margin-right: 20px;
   cursor: pointer;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../../images/Like_white.svg);
+  min-height: 19px;
+  min-width: 22px;
+  transition: opacity 0.15s linear;
+}
+
+.gallery__button-like:hover {
+  opacity: 50%;
 }
