@@ -1,0 +1,28 @@
+.save-button {
+  padding: 0;
+  width: 100%;
+  min-height: 50px;
+  background-color: black;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: "Inter" , "Times New Roman" , "Arial", serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  justify-self: flex-end;
+  transition: opacity 0.15s linear;
+}
+
+.save-button:hover {
+  opacity: 80%;
+}
+
+@media (max-width: 689px) {
+  .save-button {
+    min-height: 46px;
+  }
+}

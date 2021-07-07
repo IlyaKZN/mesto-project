@@ -1,0 +1,9 @@
+.page__gallery {
+  margin-bottom: 67px;
+}
+
+@media (max-width: 689px) {
+  .page__gallery {
+    margin-bottom: 48px;
+  }
+}

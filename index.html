@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+</head>
+<body class="page">
+  <header class="header page__header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип проекта Место">
+  </header>
+  <main class="content">
+    <section class="profile page__profile">
+      <img class="profile__image" src="./images/kusto.png" alt="Фото Жака Кусто">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button"></button>
+        <p class="profile__subline">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button"></button>
+    </section>
+    <section class="gallery page__gallery">
+      <ul class="gallery__list">
+        <li class="gallery__item">
+          <img class="gallery__img" src="./images/Elbrus.jpg" alt="Фото заснеженной горы Эльбрус">
+          <div class="gallery__subline">
+            <h1 class="gallery__title">Гора Эльбрус</h1>
+            <img class="gallery__button-like" src="./images/Like_white.svg" alt="Кнопка в виде сердца">
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__img" src="./images/ZapStolbu.jpg" alt="Вид на густые леса заповедника">
+          <div class="gallery__subline">
+            <h1 class="gallery__title">Заповедник Столбы</h1>
+            <img class="gallery__button-like" src="./images/Like_white.svg" alt="Кнопка в виде сердца">
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__img" src="./images/Ozero-Bajkal.jpg" alt="Вид на озеро Байкал на фоне гор">
+          <div class="gallery__subline">
+            <h1 class="gallery__title">Озеро Байкал</h1>
+            <img class="gallery__button-like" src="./images/Like_white.svg" alt="Кнопка в виде сердца">
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__img" src="./images/OzKezenoi-am.jpg" alt="Фото заледенелой поверхности озера на фоне гор">
+          <div class="gallery__subline">
+            <h1 class="gallery__title">Озеро Кезеной-ам</h1>
+            <img class="gallery__button-like" src="./images/Like_white.svg" alt="Кнопка в виде сердца">
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__img" src="./images/LastGnezdo.jpg" alt="Фото каменного строения напоминающего замок">
+          <div class="gallery__subline">
+            <h1 class="gallery__title">Ласточкино гнездо</h1>
+            <img class="gallery__button-like" src="./images/Like_white.svg" alt="Кнопка в виде сердца">
+          </div>
+        </li>
+        <li class="gallery__item">
+          <img class="gallery__img" src="./images/ZharskiePeski.jpg" alt="Фото песчаного массива на фоне гор">
+          <div class="gallery__subline">
+            <h1 class="gallery__title">Чарские пески</h1>
+            <img class="gallery__button-like" src="./images/Like_white.svg" alt="Кнопка в виде сердца">
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2021 Mesto Russia</p>
+  </footer>
+
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close-button"></button>
+      <div class="popup__content">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <ul class="popup__field-list">
+          <li class="popup__list-el"><input class="popup__field-text" type="text" value="Жак-Ив Кусто"></li>
+          <li class="popup__list-el"><input class="popup__field-text" type="text" value="Исследователь океана"></li>
+        </ul>
+        <button class="save-button">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

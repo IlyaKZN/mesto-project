@@ -1,0 +1,11 @@
+.gallery__subline {
+  padding: 0 0 0 0;
+  height: 79px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  background-color: white;
+  align-items: center;
+}
