@@ -41,10 +41,6 @@ editButton.addEventListener('click', () => {
 //Функция закрытия попапа
 export function closePopup (popup) {
   popup.classList.remove('popup_opened');
-  const form = popup.querySelector('.popup__form')
-  if (form) {
-    popup.querySelector('.popup__form').reset();
-  }
 };
 //(По клику на кнопку)
 closeBtns.forEach((closeButton) => {
