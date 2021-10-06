@@ -1,0 +1,11 @@
+.gallery__img {
+  width: 100%;
+  object-fit: cover;
+  max-height: 282px;
+  transition: opacity 0.15s linear;
+  cursor: pointer;
+}
+
+.gallery__img:hover {
+  opacity: 50%;
+}
