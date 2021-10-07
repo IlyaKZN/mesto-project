@@ -2,6 +2,7 @@
   width: 100%;
   object-fit: cover;
   max-height: 282px;
+  height: 100%;
   transition: opacity 0.15s linear;
   cursor: pointer;
 }

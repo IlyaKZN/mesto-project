@@ -7,7 +7,7 @@ export const enableValidation = (elFormClasses) => {
     });
     setEventListeners(formElement, elFormClasses);
   });
-};
+}
 
 //Установка слушателей на элементы формы
 const setEventListeners = (formElement, elFormClasses) => {

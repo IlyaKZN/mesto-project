@@ -17,8 +17,7 @@
   },
   "homepage": "https://github.com/IlyaKZN/mesto#readme",
   "dependencies": {
-    "core-js": "^3.18.1",
-    "jquery": "^3.6.0"
+    "core-js": "^3.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

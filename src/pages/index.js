@@ -1,6 +1,6 @@
-import { elFormClasses } from "../src/components/constans.js";
-import { enableValidation } from "../src/components/validate.js";
-import { addInitialCards } from "../src/components/card.js";
+import { elFormClasses } from "../components/constans.js";
+import { enableValidation } from "../components/validate.js";
+import { addInitialCards } from "../components/card.js";
 import './index.css';
 
 //Вызов функции запуска валидации

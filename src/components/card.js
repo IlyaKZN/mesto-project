@@ -1,6 +1,10 @@
 import {handlePreviewPicture, closePopup} from './modal.js';
 import {initialCards} from './initial-сards.js';
-import { galleryList, galleryTemplate, nameCard, urlCardImg, addForm} from './constans.js';
+const galleryList = document.querySelector('.gallery__list');
+const galleryTemplate = document.querySelector('#gallery').content;
+const addForm = addPopup.querySelector('.popup__form');
+const nameCard = addForm.querySelector('[name="name"]');
+const urlCardImg = addForm.querySelector('[name="subline"]');
 
 //Функция создания карточки
 function createCard(cardData) {
@@ -14,21 +18,27 @@ function createCard(cardData) {
     handlePreviewPicture(cardData)
   );
   card.querySelector('.gallery__button-like').addEventListener('click',
-  function(evt) {
-    evt.target.classList.toggle('gallery__button-like_active');
-  });
+  likeCard);
   card.querySelector('.gallery__button-delete').addEventListener('click',
-  function(evt1) {
-    evt1.target.closest('li').remove();
-  });
+  deleteCard);
   return card;
+}
+
+//Функция установки и снятия лайка с карточки
+function likeCard (evt) {
+  evt.target.classList.toggle('gallery__button-like_active');
+}
+
+//Функция удаления карточки
+function deleteCard (evt) {
+  evt.target.closest('li').remove();
 }
 
 //Функция добавления карточки на страницу
 function addCard (cardData, cardContainer) {
   const card = createCard(cardData);
   cardContainer.prepend(card);
-};
+}
 
 //Фунция добавления карточки пользователя
 export function addUserCard (evt) {
@@ -46,4 +56,4 @@ export function addInitialCards () {
     initialCards.forEach ((item) => {
     addCard(item, galleryList);
   });
-};
+}

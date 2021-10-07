@@ -1,16 +1,35 @@
-let activePopup;
-import { editPopup, addPopup, imgPopup, editButton, addButton, addForm, closeBtns, popups, editForm, profileName, profileSubline, nameInput ,jobInput} from './constans.js';
 import { elFormClasses } from './constans.js';
 import {toggleButtonState, hideInputError} from './validate.js';
 import {addUserCard} from './card.js';
+const editPopup = document.getElementById('editPopup');
+const addPopup = document.getElementById('addPopup');
+const imgPopup =  document.getElementById('imgPopup');
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const addForm = addPopup.querySelector('.popup__form');
+const closeBtns = document.querySelectorAll('.popup__close-button');
+const popups = document.querySelectorAll('.popup');
+const editForm = editPopup.querySelector('.popup__form');
+const profileName = document.querySelector('.profile__name');
+const profileSubline = document.querySelector('.profile__subline');
+const nameInput = editForm.querySelector('.popup__nameInput');
+const jobInput = editForm.querySelector('.popup__jobInput');
+const openImage = imgPopup.querySelector('.popup__img');
+const imgSubtitle = imgPopup.querySelector('.popup__subtitle');
+let activePopup;
 
 //Функция отрытия попапа
 function openPopup (popup) {
   popup.classList.add('popup_opened');
   activePopup = popup;
-  if (!popup.querySelector(`${elFormClasses.formSelector}`)) {
-    return;
+  document.addEventListener('keydown',checkingPressedBtn);
+  if (popup.querySelector(`${elFormClasses.formSelector}`)) {
+    resetErrorForm(popup);
   }
+}
+
+//Функция скрытия ошибки валидации и активации кнопки submit
+function resetErrorForm (popup) {
   const formElement = popup.querySelector(`${elFormClasses.formSelector}`);
   const inputList = Array.from(formElement.querySelectorAll(`${elFormClasses.inputSelector}`));
   const buttonElement = formElement.querySelector(`${elFormClasses.submitButtonSelector}`);
@@ -22,9 +41,9 @@ function openPopup (popup) {
 
 //Открытие попапа с изображением
 export function handlePreviewPicture(data) {
-  imgPopup.querySelector('.popup__img').setAttribute('src', data.link);
-  imgPopup.querySelector('.popup__img').setAttribute('alt', data.name);
-  imgPopup.querySelector('.popup__subtitle').textContent = data.name;
+  openImage.setAttribute('src', data.link);
+  openImage.setAttribute('alt', data.name);
+  imgSubtitle.textContent = data.name;
   openPopup(imgPopup);
 }
 
@@ -41,7 +60,8 @@ editButton.addEventListener('click', () => {
 //Функция закрытия попапа
 export function closePopup (popup) {
   popup.classList.remove('popup_opened');
-};
+  document.removeEventListener('keydown',checkingPressedBtn);
+}
 //(По клику на кнопку)
 closeBtns.forEach((closeButton) => {
   closeButton.addEventListener('click', (evt) => closePopup(evt.target.closest('.popup')));
@@ -56,11 +76,11 @@ popups.forEach ((item) => {
   });
 });
 //(При нажатии клавиши ESC)
-document.addEventListener('keydown', function (evt) {
+function checkingPressedBtn(evt) {
   if (evt.key === 'Escape') {
     closePopup(activePopup)
   }
-});
+}
 
 //Функциональность кнопки "Сохранить"
 function handleProfileFormSubmit (evt) {
@@ -68,7 +88,7 @@ function handleProfileFormSubmit (evt) {
   profileName.textContent = nameInput.value;
   profileSubline.textContent = jobInput.value;
   closePopup(evt.target.closest('.popup'));
-};
+}
 editForm.addEventListener('submit', handleProfileFormSubmit);
 
 //Добавление слушателя кнопке Добавить
