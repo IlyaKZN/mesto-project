@@ -41,3 +41,6 @@
 @import url(../blocks/popup/__field-text/_type/popup__field-text_type_error.css);
 @import url(../blocks/popup/__form-container/popup__form-container.css);
 @import url(../blocks/error-message/error-message.css);
+@import url(../blocks/gallery/__like-counter/gallery__like-counter.css);
+@import url(../blocks/gallery/__like-container/gallery__like-container.css);
+@import url(../blocks/gallery/__button-delete/_active/gallery__button-delete_active.css);

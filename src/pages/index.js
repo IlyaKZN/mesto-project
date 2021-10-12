@@ -1,10 +1,14 @@
 import { elFormClasses } from "../components/constans.js";
 import { enableValidation } from "../components/validate.js";
-import { addInitialCards } from "../components/card.js";
+import { getArrayCards } from "../components/card";
+import { fillingUserProfile } from "../utils/api.js";
 import './index.css';
 
 //Вызов функции запуска валидации
 enableValidation(elFormClasses);
 
-//Вызов функции добавления начальных карточек
-addInitialCards();
+//Вызов функции загрузки профиля
+fillingUserProfile();
+
+//Вызов функции отрисовки карточек с сервера
+getArrayCards();

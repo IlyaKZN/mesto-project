@@ -11,6 +11,7 @@
   background-color: rgba(0, 0, 0, 0);
   background-image: url(../../../images/deleteButton.svg);
   transition: opacity 0.15s linear;
+  display: none;
 }
 
 .gallery__button-delete:hover {

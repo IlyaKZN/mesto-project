@@ -12,11 +12,11 @@
   </header>
   <main class="content">
     <section class="profile content__profile">
-      <img class="profile__image" src="<%=require('./images/kusto.png')%>" alt="Аватар пользователя">
+      <img class="profile__image" src="" alt="Аватар пользователя">
       <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <h1 class="profile__name"></h1>
         <button class="profile__edit-button" type="button" aria-label="Кнопка редактирования профиля"></button>
-        <p class="profile__subline">Исследователь океана</p>
+        <p class="profile__subline"></p>
       </div>
       <button class="profile__add-button" type="button" aria-label="Кнопка добавления новой карточки"></button>
     </section>
@@ -83,7 +83,10 @@
       <button class="gallery__button-delete" type="button" aria-label="Кнопка удаления"></button>
       <div class="gallery__subline">
         <h2 class="gallery__title"></h2>
-        <button class="gallery__button-like" type="button" aria-label="Кнопка лайка"></button>
+        <div class="gallery__like-container">
+          <button class="gallery__button-like" type="button" aria-label="Кнопка лайка"></button>
+          <p class="gallery__like-counter"></p>
+        </div>
       </div>
     </li>
   </template>

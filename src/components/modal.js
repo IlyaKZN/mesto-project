@@ -1,6 +1,7 @@
 import { elFormClasses } from './constans.js';
 import {toggleButtonState, hideInputError} from './validate.js';
 import {addUserCard} from './card.js';
+import { saveProfileData } from '../utils/api.js';
 const editPopup = document.getElementById('editPopup');
 const addPopup = document.getElementById('addPopup');
 const imgPopup =  document.getElementById('imgPopup');
@@ -10,8 +11,8 @@ const addForm = addPopup.querySelector('.popup__form');
 const closeBtns = document.querySelectorAll('.popup__close-button');
 const popups = document.querySelectorAll('.popup');
 const editForm = editPopup.querySelector('.popup__form');
-const profileName = document.querySelector('.profile__name');
-const profileSubline = document.querySelector('.profile__subline');
+export const profileName = document.querySelector('.profile__name');
+export const profileSubline = document.querySelector('.profile__subline');
 const nameInput = editForm.querySelector('.popup__nameInput');
 const jobInput = editForm.querySelector('.popup__jobInput');
 const openImage = imgPopup.querySelector('.popup__img');
@@ -88,6 +89,7 @@ function handleProfileFormSubmit (evt) {
   profileName.textContent = nameInput.value;
   profileSubline.textContent = jobInput.value;
   closePopup(evt.target.closest('.popup'));
+  saveProfileData(nameInput.value, jobInput.value);
 }
 editForm.addEventListener('submit', handleProfileFormSubmit);
 
