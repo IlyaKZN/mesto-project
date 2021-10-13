@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IlyaKZN/mesto.git"
+    "url": "git+https://github.com/IlyaKZN/mesto-project.git"
   },
   "author": "Ilya Pichugin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IlyaKZN/mesto/issues"
+    "url": "https://github.com/IlyaKZN/mesto-project/issues"
   },
-  "homepage": "https://github.com/IlyaKZN/mesto#readme",
+  "homepage": "https://github.com/IlyaKZN/mesto-project#readme",
   "dependencies": {
     "core-js": "^3.18.1"
   },
