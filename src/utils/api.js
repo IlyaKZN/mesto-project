@@ -1,7 +1,4 @@
-import { profileName,profileSubline } from "../components/modal.js";
-import { addInitialCards, userId, getUserId } from "../components/card.js";
-const profileImg = document.querySelector('.profile__image');
-
+//Данные пользователя
 export const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-2',
   headers: {
@@ -11,26 +8,13 @@ export const config = {
 }
 
 //Запрос информации пользователя
-const getUserInformation = () => {
+export const getUserInformation = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: {
       authorization: `${config.headers.authorization}`
     }
   })
 }
-
-//Заполнение профиля пользователя
-export const fillingUserProfile = () => {
-  getUserInformation()
-    .then(res => res.json())
-    .then((res) => {
-      getUserId(res._id);
-      profileName.textContent = res.name;
-      profileSubline.textContent = res.about;
-      profileImg.src = res.avatar;
-    })
-}
-
 
 //Запрос объекта с карточками
 export const getInitialCards = () => {
@@ -43,7 +27,7 @@ export const getInitialCards = () => {
 
 //Обновление данных пользователя
 export const saveProfileData = (name, about) => {
-  fetch(`${config.baseUrl}/users/me`, {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: {
       authorization: `${config.headers.authorization}`,
@@ -56,8 +40,24 @@ export const saveProfileData = (name, about) => {
   });
 }
 
+//Отправляем запрос на обновление аватара пользователя
+export const saveProfileAvatar = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      authorization: `${config.headers.authorization}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: avatar
+    })
+  });
+}
+
+
+//Отправляем запрос на добавление карточки
 export const addNewCard = (name, link) => {
-  fetch(`${config.baseUrl}/cards`, {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: {
       authorization: `${config.headers.authorization}`,
@@ -70,6 +70,7 @@ export const addNewCard = (name, link) => {
   });
 }
 
+//Отправляем запрос на установку(снятие) лайка с карточки
 export const sendLikeCard = (evt, cardData) => {
   if (!evt.target.classList.contains('gallery__button-like_active')) {
     return fetch(`${config.baseUrl}/cards/likes/${cardData._id}`, {
@@ -88,4 +89,14 @@ export const sendLikeCard = (evt, cardData) => {
       }
     });
   }
+}
+
+//Отправляем запрос на удаление карточки пользователя
+export const deleteCardReq = (cardData) => {
+  return fetch(`${config.baseUrl}/cards/${cardData._id}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `${config.headers.authorization}`
+    }
+  })
 }

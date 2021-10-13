@@ -1,12 +1,12 @@
-import {handlePreviewPicture, closePopup} from './modal.js';
+import { handlePreviewPicture, closePopup, openPopup, renderLoading } from './modal.js';
 import { getInitialCards, addNewCard, sendLikeCard } from '../utils/api.js';
+import { deletePopup } from './modal.js';
 const galleryList = document.querySelector('.gallery__list');
 const galleryTemplate = document.querySelector('#gallery').content;
 const addForm = addPopup.querySelector('.popup__form');
 const nameCard = addForm.querySelector('[name="name"]');
 const urlCardImg = addForm.querySelector('[name="subline"]');
 export let userId = '';
-
 
 //Запишем id активного пользователя
 export const getUserId = (id) => {
@@ -25,8 +25,12 @@ function createCard(cardData) {
     handlePreviewPicture(cardData)
   );
   card.querySelector('.gallery__button-like').addEventListener('click', (evt) => likeCard(evt, cardData));
-  card.querySelector('.gallery__button-delete').addEventListener('click',
-  deleteCard);
+  elementImage.onerror = function onError() {
+    elementImage.setAttribute('src', 'https://oir.mobi/uploads/posts/2021-03/1616967154_56-p-svetlo-serii-fon-58.jpg');
+  };
+  card.querySelector('.gallery__button-delete').addEventListener('click', (evt) => {
+    openPopup(deletePopup, cardData, evt)
+  });
   card.querySelector('.gallery__like-counter').textContent = cardData.likes.length;
   if (cardData.owner._id === userId) {
     card.querySelector('.gallery__button-delete').classList.add('gallery__button-delete_active');
@@ -43,16 +47,22 @@ function createCard(cardData) {
 function likeCard (evt, cardData) {
   evt.target.classList.toggle('gallery__button-like_active');
   sendLikeCard(evt, cardData)
-    .then((res) => {
+    .then(res => {
+      if (res.ok) {
       return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((res) => {
       evt.target.parentNode.querySelector('.gallery__like-counter').textContent = res.likes.length;
     })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 //Функция удаления карточки
-function deleteCard (evt) {
+export function deleteCard (evt) {
   evt.target.closest('li').remove();
 }
 
@@ -65,13 +75,31 @@ function addCard (cardData, cardContainer) {
 //Фунция добавления карточки пользователя
 export function addUserCard (evt) {
   evt.preventDefault();
-  closePopup(evt.target.closest('.popup'));
-  addNewCard(nameCard.value, urlCardImg.value);
+  const firstValueBtn = evt.target.querySelector('.popup__save-button').textContent;
+  renderLoading(true);
+  addNewCard(nameCard.value, urlCardImg.value)
+    .then(res => {
+      if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((res) => {
+      addCard (res, galleryList)
+      closePopup(evt.target.closest('.popup'));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(false, firstValueBtn);
+    });
   addForm.reset();
 }
 
 //Отрисовка карточек с сервера
 function addInitialCards (cardData) {
+    cardData = cardData.reverse();
     cardData.forEach ((item) => {
     addCard(item, galleryList);
   });
@@ -80,8 +108,16 @@ function addInitialCards (cardData) {
 //Получение массива карточек
 export const getArrayCards = () => {
   getInitialCards()
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((res) => {
       addInitialCards(res);
     })
+    .catch((err) => {
+      console.log(err);
+    });
 }
