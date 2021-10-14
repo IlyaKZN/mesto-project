@@ -4,4 +4,4 @@
 
 В разработке данного сайта были применены технологии HTML5 CSS и JavaScript, сборка прокета осуществляется с помощью WebPack.
 
-Ссылка на репозиторий : https://ilyakzn.github.io/mesto/
+Ссылка на репозиторий : https://ilyakzn.github.io/mesto-project/
