@@ -14,15 +14,17 @@ export const getUserInformation = () => {
       authorization: `${config.headers.authorization}`
     }
   })
+  .then(getResponseData);
 }
 
 //Запрос объекта с карточками
-export const getInitialCards = () => {
+export const getInitialCards = (we) => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: {
       authorization: `${config.headers.authorization}`
     }
   })
+  .then(getResponseData);
 }
 
 //Обновление данных пользователя
@@ -37,7 +39,8 @@ export const saveProfileData = (name, about) => {
       name: name,
       about: about
     })
-  });
+  })
+  .then(getResponseData);
 }
 
 //Отправляем запрос на обновление аватара пользователя
@@ -51,7 +54,43 @@ export const saveProfileAvatar = (avatar) => {
     body: JSON.stringify({
       avatar: avatar
     })
-  });
+  })
+  .then(getResponseData);
+}
+
+
+//Отправляем запрос на установку(снятие) лайка с карточки
+export const sendLikeCard = (evt, cardData) => {
+  if (evt.target.classList.contains('gallery__button-like_active')) {
+    return fetch(`${config.baseUrl}/cards/likes/${cardData._id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `${config.headers.authorization}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(getResponseData);
+  } else {
+    return fetch(`${config.baseUrl}/cards/likes/${cardData._id}`, {
+      method: 'PUT',
+      headers: {
+        authorization: `${config.headers.authorization}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(getResponseData);
+  }
+}
+
+//Отправляем запрос на удаление карточки пользователя
+export const deleteCardReq = (cardData) => {
+  return fetch(`${config.baseUrl}/cards/${cardData._id}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `${config.headers.authorization}`
+    }
+  })
+  .then(getResponseData)
 }
 
 
@@ -67,36 +106,16 @@ export const addNewCard = (name, link) => {
       name: name,
       link: link
     })
-  });
-}
-
-//Отправляем запрос на установку(снятие) лайка с карточки
-export const sendLikeCard = (evt, cardData) => {
-  if (!evt.target.classList.contains('gallery__button-like_active')) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardData._id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: `${config.headers.authorization}`,
-        'Content-Type': 'application/json'
-      }
-    });
-  } else {
-    return fetch(`${config.baseUrl}/cards/likes/${cardData._id}`, {
-      method: 'PUT',
-      headers: {
-        authorization: `${config.headers.authorization}`,
-        'Content-Type': 'application/json'
-      }
-    });
-  }
-}
-
-//Отправляем запрос на удаление карточки пользователя
-export const deleteCardReq = (cardData) => {
-  return fetch(`${config.baseUrl}/cards/${cardData._id}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: `${config.headers.authorization}`
-    }
   })
+  .then(getResponseData);
+}
+
+
+//Проверка состояния промисса
+const getResponseData = (res) => {
+  if (!res.ok) {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  } else {
+    return res.json();
+  }
 }
