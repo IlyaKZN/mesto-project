@@ -1,7 +1,7 @@
 import { elFormClasses } from "../components/constans.js";
 import { enableValidation } from "../components/validate.js";
 import { getArrayCards } from "../components/card.js";
-import { getUserInformation } from "../utils/api.js";
+import { getUserInformation, getInitialCards } from "../utils/api.js";
 import { getUserId } from "../components/card.js";
 import { profileName,profileSubline, avatarProfile } from "../components/modal.js";
 import './index.css';
@@ -9,12 +9,6 @@ import './index.css';
 //Функция отрисовки профиля пользователя
 const fillingUserProfile = () => {
   getUserInformation()
-    .then(res => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((res) => {
       getUserId(res._id);
       profileName.textContent = res.name;
@@ -29,8 +23,18 @@ const fillingUserProfile = () => {
 //Вызов функции запуска валидации
 enableValidation(elFormClasses);
 
-//Вызов функции отрисовки карточек с сервера
-getArrayCards();
+Promise.all([
+  getUserInformation(),
+  getInitialCards()
+])
 
-//Вызов функции отрисовки профиля пользователя
+.then((values)=>{ //попадаем сюда когда оба промиса будут выполнены
+  //Вызов функции отрисовки карточек с сервера
+  getArrayCards();
+})
+
+.catch((err)=>{ //попадаем сюда если один из промисов завершаться ошибкой
+  console.log(err);
+})
+
 fillingUserProfile();

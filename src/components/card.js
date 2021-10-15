@@ -1,5 +1,5 @@
-import { handlePreviewPicture, closePopup, openPopup, renderLoading } from './modal.js';
-import { getInitialCards, addNewCard, sendLikeCard } from '../utils/api.js';
+import { handlePreviewPicture, closePopup, openPopup, renderLoading, addDeleteListener } from './modal.js';
+import { getInitialCards, addNewCard, sendLikeCard, getResponseData } from '../utils/api.js';
 import { deletePopup } from './modal.js';
 const galleryList = document.querySelector('.gallery__list');
 const galleryTemplate = document.querySelector('#gallery').content;
@@ -15,6 +15,10 @@ export const getUserId = (id) => {
 
 //Функция создания карточки
 function createCard(cardData) {
+  const deletePopupData = {
+    popup: deletePopup,
+    cardData: cardData
+  };
   const card = galleryTemplate.querySelector('.gallery__item').cloneNode(true);
   const title = card.querySelector('.gallery__title');
   title.textContent = cardData.name;
@@ -29,7 +33,8 @@ function createCard(cardData) {
     elementImage.setAttribute('src', 'https://oir.mobi/uploads/posts/2021-03/1616967154_56-p-svetlo-serii-fon-58.jpg');
   };
   card.querySelector('.gallery__button-delete').addEventListener('click', (evt) => {
-    openPopup(deletePopup, cardData, evt)
+    openPopup(deletePopup);
+    addDeleteListener(cardData, evt);
   });
   card.querySelector('.gallery__like-counter').textContent = cardData.likes.length;
   if (cardData.owner._id === userId) {
@@ -45,15 +50,9 @@ function createCard(cardData) {
 
 //Функция установки и снятия лайка с карточки
 function likeCard (evt, cardData) {
-  evt.target.classList.toggle('gallery__button-like_active');
   sendLikeCard(evt, cardData)
-    .then(res => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((res) => {
+      evt.target.classList.toggle('gallery__button-like_active');
       evt.target.parentNode.querySelector('.gallery__like-counter').textContent = res.likes.length;
     })
     .catch((err) => {
@@ -78,12 +77,6 @@ export function addUserCard (evt) {
   const firstValueBtn = evt.target.querySelector('.popup__save-button').textContent;
   renderLoading(true);
   addNewCard(nameCard.value, urlCardImg.value)
-    .then(res => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((res) => {
       addCard (res, galleryList)
       closePopup(evt.target.closest('.popup'));
@@ -108,12 +101,6 @@ function addInitialCards (cardData) {
 //Получение массива карточек
 export const getArrayCards = () => {
   getInitialCards()
-    .then(res => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((res) => {
       addInitialCards(res);
     })

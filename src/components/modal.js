@@ -24,28 +24,21 @@ export const deletePopup = document.getElementById('deletePopup');
 let activePopup;
 
 //Функция отрытия попапа
-export function openPopup (popup, cardData, evt) {
-  //Установка слушателя на кнопку согласия с удалением карточки
-  deletePopup.querySelector('.popup__save-button').addEventListener('click', () => {
-    deleteCardReq(cardData)
-    .then(res => {
-      if (!res.ok) {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    deleteCard(evt);
-    closePopup(popup);
-  });
+export function openPopup (popup) {
   popup.classList.add('popup_opened');
   activePopup = popup;
   document.addEventListener('keydown',checkingPressedBtn);
-  if (popup.querySelector(`${elFormClasses.formSelector}`)) {
-    resetErrorForm(popup);
-  }
 }
+
+//Установка слушателя на кнопку согласия с удалением карточки
+export const addDeleteListener = (cardData, evt) => deletePopup.querySelector('.popup__save-button').addEventListener('click', () => {
+  deleteCardReq(cardData)
+  .catch((err) => {
+    console.log(err);
+  });
+  deleteCard(evt);
+  closePopup(deletePopup);
+});
 
 //Функция скрытия ошибки валидации и активации кнопки submit
 function resetErrorForm (popup) {
@@ -69,16 +62,19 @@ export function handlePreviewPicture(data) {
 //Установка слушателей на кнопки открытия попапов
 addButton.addEventListener('click', function () {
   openPopup(addPopup);
+  resetErrorForm(addPopup);
 });
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileSubline.textContent;
   openPopup(editPopup);
+  resetErrorForm(editPopup);
 });
 
 //Установка слушателя открытия попапа по клику на аватар
 avatarProfile.addEventListener('click', () => {
   openPopup(avatarPopup);
+  resetErrorForm(avatarPopup);
 })
 
 //Функция закрытия попапа
@@ -112,12 +108,6 @@ function handleProfileFormSubmit (evt) {
   const firstValueBtn = evt.target.querySelector('.popup__save-button').textContent;
   renderLoading(true);
   saveProfileData(nameInput.value, jobInput.value)
-    .then(res => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((res) => {
       profileName.textContent = res.name;
       profileSubline.textContent = res.about;
@@ -147,12 +137,6 @@ function changeAvatar (evt) {
   const firstValueBtn = evt.target.querySelector('.popup__save-button').textContent;
   renderLoading(true);
   saveProfileAvatar(avatarForm.querySelector('.popup__field-text').value)
-    .then(res => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    })
     .then((res) => {
       avatarProfile.style.backgroundImage = `url('${res.avatar}')`;
       closePopup(activePopup);
