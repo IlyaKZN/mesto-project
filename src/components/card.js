@@ -91,20 +91,9 @@ export function addUserCard (evt) {
 }
 
 //Отрисовка карточек с сервера
-function addInitialCards (cardData) {
+export function addInitialCards (cardData) {
     cardData = cardData.reverse();
     cardData.forEach ((item) => {
     addCard(item, galleryList);
   });
-}
-
-//Получение массива карточек
-export const getArrayCards = () => {
-  getInitialCards()
-    .then((res) => {
-      addInitialCards(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 }
